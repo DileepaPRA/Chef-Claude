@@ -15,7 +15,7 @@ function MainCompoent() {
     }
 
   return (
-  <main className="w-[640px] border-x-2 border-b-2 border-gray-300 bg-stone-50 py-5 shadow-md flex flex-col">
+  <main className="w-[640px] border-x-2 border-b-2 border-gray-300 bg-stone-50 py-5 shadow-md flex flex-col rounded-b-lg">
         <form className="flex items-center justify-center gap-10 pb-[6px] pt-[20px]" action={submitHandler}>
             <input 
                 aria-label="add ingredient"
