@@ -26,9 +26,17 @@ function MainCompoent() {
             />
             <button className="bg-black text-white py-2 px-6 rounded-lg shadow-xl">+ Add ingredient</button>
         </form>
-        <ul className="ml-30 list-disc">
-            {ingredientListItems}
-        </ul>
+        {ingredients.length > 0 && <section className="ml-10">
+            <h2 className="text-4xl font-bold mb-4">Ingredient on hand:</h2>
+            <ul className="list-disc mb-4 gap-2 ml-10 mb-8" aria-live="poite">{ingredientListItems}</ul>
+            <div className="bg-taupe-200 w-[540px] rounded-md flex items-center p-4">
+                <div className="ml-4">
+                    <h3 className="font-medium mb-2">Ready for a recipe?</h3>
+                    <p className="text-sm text-slate-500">Genarate a recipe from your list of ingredient</p>
+                </div>
+                <button className="bg-amber-600 text-white px-2 rounded-lg ml-18 w-28 h-12">Get a recipe</button>
+            </div>
+        </section>}
     </main>
   )
 }
