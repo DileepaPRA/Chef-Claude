@@ -1,8 +1,10 @@
+import Header from "./Header"
+
 const App = () => {
 
   return(
-    <div>
-      
+    <div className="flex flex-col items-center">
+      <Header />
     </div>
   )
 }
