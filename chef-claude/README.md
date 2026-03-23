@@ -1,52 +1,56 @@
-# React + Vite
+﻿# 👨‍🍳 Chef Claude (AI Recipe Generator)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to **Chef Claude**, a React application that turns your leftover ingredients into delicious, AI-generated recipes! Simply type in the ingredients you have on hand, and let the AI do the thinking.
 
-Currently, two official plugins are available:
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🍽️ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Ingredient Tracker**: Add the ingredients you currently have in your kitchen.
+- **AI-Powered Recipes**: Send your ingredients to the backend, where an AI model generates a specific, step-by-step recipe for you.
+- **Beautiful Markdown Output**: The recipe is generated in Markdown and beautifully rendered automatically via \
+eact-markdown\ and Tailwind Typography.
+- **Secure Backend Integration**: API keys are securely kept server-side, preventing exposure to the browser.
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Frontend**: React 19, Vite
+- **Styling**: Tailwind CSS v4, \@tailwindcss/typography\
+- **Markdown Parsing**: \
+eact-markdown\
+- **Backend**: Express.js proxy server
+- **AI Integration**: Google AI Studio (Gemini 2.5)
 
-## Google AI Studio Integration (Safe Setup)
+## 🚀 Getting Started
 
-This project now uses a local backend endpoint so your Google AI key stays server-side and is never exposed in browser code.
+Follow these steps to set up the project locally.
 
 ### 1) Create local env file
+You need an API key to allow the application to generate recipes. 
+Create a \.env.local\ file in the root directory and add your keys:
 
-Copy `.env.example` to `.env.local` and set your key:
-
-```bash
+\\\ash
 GOOGLE_AI_API_KEY=your_real_key_here
 GOOGLE_AI_MODEL=gemini-2.0-flash
 PORT=3001
-```
-
-If your account only supports different models, change `GOOGLE_AI_MODEL` in `.env.local` (for example `gemini-2.0-flash-lite`).
+\\\
 
 ### 2) Install dependencies
-
-```bash
+\\\ash
 npm install
-```
+\\\
 
-### 3) Run frontend + backend together
+### 3) Run both the frontend and backend
+We use \concurrently\ to run the React development server and the backend Express server at the same time:
 
-```bash
+\\\ash
 npm run dev:all
-```
+\\\
 
-Frontend runs on Vite and calls `/api/recipe`; Vite proxies it to the backend on `http://localhost:3001`.
-
-### 4) Key safety checklist
-
-- Keep your real key only in `.env.local` (already gitignored).
-- Never put the key in React files or variables starting with `VITE_`.
-- If you accidentally pushed a key before, revoke/regenerate it in Google AI Studio immediately.
+### 4) Key Safety Checklist
+- 🚫 **Never** commit your \.env.local\ file to GitHub.
+- ✅ The backend handles all API requests. The frontend only talks to the local \/api/recipe\ proxy.
