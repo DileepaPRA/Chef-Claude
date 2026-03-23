@@ -5,8 +5,9 @@ import IngredientList from './IngredientList';
 function MainCompoent() {
 
     const [ingredients, setIngredient] = useState([]);
-
-    const [recipeShown, setRecipeShown] = useState(false);
+    const [recipe, setRecipe] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState('');
 
 
     const submitHandler = (formData) => {
@@ -15,7 +16,32 @@ function MainCompoent() {
         
     }
 
-    const toggleRecipeShown = () => setRecipeShown(!recipeShown); 
+    const generateRecipe = async () => {
+        setIsLoading(true);
+        setError('');
+
+        try {
+            const response = await fetch('/api/recipe', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ ingredients }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Could not generate recipe right now.');
+            }
+
+            setRecipe(data.recipe);
+        } catch (requestError) {
+            setError(requestError.message || 'Something went wrong while generating recipe.');
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
 
 return (
@@ -31,8 +57,9 @@ return (
             <button className="bg-black text-white py-2 px-6 rounded-lg shadow-xl">+ Add ingredient</button>
         </form>
         <p className="ml-25 mb-4 text-xs text-zinc-600 opacity-50">Add at least four ingredients</p>
-        {ingredients.length > 0 && <IngredientList ingredients={ingredients} toggleRecipeShown={toggleRecipeShown} />}
-        {recipeShown && <ClaudeRecipe />}
+        {ingredients.length > 0 && <IngredientList ingredients={ingredients} generateRecipe={generateRecipe} isLoading={isLoading} />}
+        {error && <p className="ml-10 text-sm text-red-600">{error}</p>}
+        {recipe && <ClaudeRecipe recipe={recipe} />}
     </main>
 )
 }

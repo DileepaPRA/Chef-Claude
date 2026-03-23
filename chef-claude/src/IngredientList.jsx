@@ -15,7 +15,13 @@ function IngredientList(props) {
                     <h3 className="font-medium mb-2">Ready for a recipe?</h3>
                     <p className="text-sm text-slate-600">Generate a recipe from your list of ingredients</p>
                 </div>
-                <button onClick={props.toggleRecipeShown} className="bg-amber-600 text-white px-4 rounded-lg ml-auto w-28 h-12 hover:bg-amber-700">Get a recipe</button>
+              <button
+                onClick={props.generateRecipe}
+                className="bg-amber-600 text-white px-4 rounded-lg ml-auto w-32 h-12 hover:bg-amber-700 disabled:opacity-70"
+                disabled={props.isLoading}
+              >
+                {props.isLoading ? 'Thinking...' : 'Get a recipe'}
+              </button>
             </div>}
     </section>
   )
